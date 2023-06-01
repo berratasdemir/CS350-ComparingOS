@@ -11,6 +11,7 @@ def benchmark_gpu():
         # Memory Transfer
         start = time.time()
 
+        #using randomized data for benchmarks
         A_cpu = torch.randn([N, N])
         B_cpu = torch.randn([N, N])
         A_gpu = A_cpu.to('cuda')
@@ -65,6 +66,55 @@ def benchmark_gpu():
         end = time.time()
 
         print(f"Convolutional operation on GPU: {end - start} seconds")
+
+        # Max Pooling operation
+        pool = torch.nn.MaxPool2d(2, 2, device='cuda')
+        start = time.time()
+
+        Y = pool(Y)
+
+        torch.cuda.synchronize()
+
+        end = time.time()
+
+        print(f"Max Pooling operation on GPU: {end - start} seconds")
+
+        # Batch Normalization
+        batch_norm = torch.nn.BatchNorm2d(N).cuda()
+        start = time.time()
+
+        Y = batch_norm(A_gpu.unsqueeze(0))
+
+        torch.cuda.synchronize()
+
+        end = time.time()
+
+        print(f"Batch Normalization on GPU: {end - start} seconds")
+
+        # ReLU Activation
+        relu = torch.nn.ReLU().cuda()
+        start = time.time()
+
+        Y = relu(A_gpu)
+
+        torch.cuda.synchronize()
+
+        end = time.time()
+
+        print(f"ReLU Activation on GPU: {end - start} seconds")
+
+        # Softmax Activation
+        softmax = torch.nn.Softmax(dim=1).cuda()
+        start = time.time()
+
+        Y = softmax(A_gpu)
+
+        torch.cuda.synchronize()
+
+        end = time.time()
+
+        print(f"Softmax Activation on GPU: {end - start} seconds")
+
     else:
         print("No CUDA-enabled GPU is available.")
 
