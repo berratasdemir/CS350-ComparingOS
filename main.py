@@ -5,7 +5,6 @@ import time
 
 import psutil as psutil
 
-
 """class BootTimeAnalyzer:
     def measure_boot_time(self):
         # Reboot the system
@@ -28,7 +27,7 @@ import psutil as psutil
 
 
 class FileAnalyzer:
-    def analyze_file(self,file_path):
+    def analyze_file(self, file_path):
         start_time = time.time()
 
         # Perform file analysis tasks
@@ -41,6 +40,7 @@ class FileAnalyzer:
 
         return file_size, file_extension, file_modified_time, execution_time
 
+
 class SystemAnalyzer:
     def measure_memory_usage(self):
         memory_usage = psutil.virtual_memory().used / (1024 ** 2)  # Memory usage in megabytes
@@ -50,8 +50,9 @@ class SystemAnalyzer:
         cpu_utilization = psutil.cpu_percent()
         return cpu_utilization
 
+
 if __name__ == "__main__":
-    #boot_time_analyzer = BootTimeAnalyzer()
+    # boot_time_analyzer = BootTimeAnalyzer()
     file_analyzer = FileAnalyzer()
     system_analyzer = SystemAnalyzer()
 
@@ -61,9 +62,10 @@ if __name__ == "__main__":
     with open("boot_time.txt", "w") as file:
         file.write(f"Boot-up Time: {boot_time} seconds")"""
 
-    #file analyzer
+    # file analyzer
     file_path = "C:\\Users\\Berra\\Documents\\ÖZYEĞİN\\Özyeğin 22-23 Bahar Dönemi\\CS 350\project\\file.txt"
-
+    #!! issue
+    # not an universal path
 
     file_size, file_extension, file_modified_time, execution_time = file_analyzer.analyze_file(file_path)
 
@@ -79,5 +81,3 @@ if __name__ == "__main__":
     # Measure CPU utilization
     cpu_utilization = system_analyzer.measure_cpu_utilization()
     print("CPU Utilization:", cpu_utilization, "%")
-
-
