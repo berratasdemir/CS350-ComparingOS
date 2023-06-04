@@ -1,12 +1,20 @@
-# CPU Benchmarks
 import time
 import math
 import numpy as np
 import random
+import csv
 
 
-# numpy is required
-# 1. Prime calculation
+def save_results_to_csv(results, timestamp):
+    file_name = f"cpubenchmark_results_{timestamp}.csv"
+    file_name = file_name.replace(":", "_")  # Replace colons with underscores
+    with open(file_name, mode="w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(["Benchmark", "Execution Time (seconds)"])
+        writer.writerows(results)
+    print(f"Benchmark results saved to {file_name}")
+
+
 def is_prime(n):
     if n <= 1:
         return False
@@ -22,59 +30,85 @@ def is_prime(n):
     return True
 
 
-start = time.time()
-primes = [x for x in range(1, 100000) if is_prime(x)]
-end = time.time()
-print(f"Prime calculation: {end - start} seconds")
-
-# 2. Floating point arithmetic
-N = 10 ** 7
-A = np.random.rand(N)
-B = np.random.rand(N)
-
-start = time.time()
-C = A * B
-end = time.time()
-print(f"Floating point arithmetic: {end - start} seconds")
-
-# 3. Matrix multiplication
-N = 500
-A = np.random.rand(N, N)
-B = np.random.rand(N, N)
-
-start = time.time()
-C = A @ B
-end = time.time()
-print(f"Matrix multiplication: {end - start} seconds")
+def prime_calculation_benchmark():
+    start_time = time.time()
+    primes = [x for x in range(1, 100000) if is_prime(x)]
+    end_time = time.time()
+    execution_time = end_time - start_time
+    return ["Prime calculation", execution_time]
 
 
-# 4. Fibonacci sequence (recursion)
-def fib(n):
-    if n <= 1:
-        return n
-    else:
-        return (fib(n - 1) + fib(n - 2))
+def floating_point_arithmetic_benchmark():
+    N = 10 ** 7
+    A = np.random.rand(N)
+    B = np.random.rand(N)
+    start_time = time.time()
+    C = A * B
+    end_time = time.time()
+    execution_time = end_time - start_time
+    return ["Floating point arithmetic", execution_time]
 
 
-start = time.time()
-fib(30)
-end = time.time()
-print(f"Fibonacci sequence (recursion): {end - start} seconds")
+def matrix_multiplication_benchmark():
+    N = 500
+    A = np.random.rand(N, N)
+    B = np.random.rand(N, N)
+    start_time = time.time()
+    C = A @ B
+    end_time = time.time()
+    execution_time = end_time - start_time
+    return ["Matrix multiplication", execution_time]
 
-# 5. Sorting
-N = 10 ** 6
-A = list(range(N))
-random.shuffle(A)
 
-start = time.time()
-A.sort()
-end = time.time()
-print(f"Sorting: {end - start} seconds")
+def fibonacci_sequence_benchmark():
+    def fib(n):
+        if n <= 1:
+            return n
+        else:
+            return (fib(n - 1) + fib(n - 2))
 
-# 6. Searching
-target = A[-1]  # worst case
+    start_time = time.time()
+    fib(30)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    return ["Fibonacci sequence (recursion)", execution_time]
 
-start = time.time()
-index = A.index(target)
-end = time.time()
-print(f"Searching: {end - start} seconds")
+
+def sorting_benchmark():
+    N = 10 ** 6
+    A = list(range(N))
+    random.shuffle(A)
+    start_time = time.time()
+    A.sort()
+    end_time = time.time()
+    execution_time = end_time - start_time
+    return ["Sorting", execution_time]
+
+
+def searching_benchmark():
+    N = 10 ** 6
+    A = list(range(N))
+    random.shuffle(A)
+    target = A[-1]  # worst case
+    start_time = time.time()
+    index = A.index(target)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    return ["Searching", execution_time]
+
+
+def benchmark_cpu():
+    timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+    results = [
+        prime_calculation_benchmark(),
+        floating_point_arithmetic_benchmark(),
+        matrix_multiplication_benchmark(),
+        fibonacci_sequence_benchmark(),
+        sorting_benchmark(),
+        searching_benchmark()
+    ]
+    save_results_to_csv(results, timestamp)
+
+
+if __name__ == "__main__":
+    benchmark_cpu()
