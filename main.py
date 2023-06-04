@@ -1,11 +1,10 @@
 import subprocess
-import time
 import os
 import time
 
 import psutil as psutil
 
-"""class BootTimeAnalyzer:
+class BootTimeAnalyzer:
     def measure_boot_time(self):
         # Reboot the system
         subprocess.call(["shutdown", "-r", "-t", "0"])
@@ -23,7 +22,7 @@ import psutil as psutil
                 # Command failed, system is not yet ready
                 pass
 
-        return boot_time"""
+        return boot_time
 
 
 class FileAnalyzer:
@@ -52,20 +51,19 @@ class SystemAnalyzer:
 
 
 if __name__ == "__main__":
-    # boot_time_analyzer = BootTimeAnalyzer()
+    boot_time_analyzer = BootTimeAnalyzer()
     file_analyzer = FileAnalyzer()
     system_analyzer = SystemAnalyzer()
 
-    """#boot time
+    #boot time
     boot_time = boot_time_analyzer.measure_boot_time()
     # Save the boot-up time to a text file
     with open("boot_time.txt", "w") as file:
-        file.write(f"Boot-up Time: {boot_time} seconds")"""
+        file.write(f"Boot-up Time: {boot_time} seconds")
 
     # file analyzer
-    file_path = "C:\\Users\\Berra\\Documents\\ÖZYEĞİN\\Özyeğin 22-23 Bahar Dönemi\\CS 350\project\\file.txt"
-    #!! issue
-    # not an universal path
+    file_path = "test.txt"
+
 
     file_size, file_extension, file_modified_time, execution_time = file_analyzer.analyze_file(file_path)
 
