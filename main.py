@@ -4,7 +4,11 @@ import time
 
 import psutil as psutil
 
-class BootTimeAnalyzer:
+'''ATTENTION
+When you run this it will reboot immediately
+If you want to see the results you can uncomment the BootTimeAnalyzer class and run the program'''
+
+'''class BootTimeAnalyzer:
     def measure_boot_time(self):
         # Reboot the system
         subprocess.call(["shutdown", "-r", "-t", "0"])
@@ -22,7 +26,7 @@ class BootTimeAnalyzer:
                 # Command failed, system is not yet ready
                 pass
 
-        return boot_time
+        return boot_time'''
 
 
 class FileAnalyzer:
@@ -51,12 +55,13 @@ class SystemAnalyzer:
 
 
 if __name__ == "__main__":
-    boot_time_analyzer = BootTimeAnalyzer()
+    #ATTENTION this reboots the computer immediately, if you want to test it you can uncomment it
+    #boot_time_analyzer = BootTimeAnalyzer()
     file_analyzer = FileAnalyzer()
     system_analyzer = SystemAnalyzer()
 
-    #boot time
-    boot_time = boot_time_analyzer.measure_boot_time()
+    #uncomment to reboot and see the boot time
+    #boot_time = boot_time_analyzer.measure_boot_time()
     # Save the boot-up time to a text file
     with open("boot_time.txt", "w") as file:
         file.write(f"Boot-up Time: {boot_time} seconds")
